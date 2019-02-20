@@ -21,3 +21,6 @@ HTTP authentication schemes provided in Django Rest Framework.
     ./manage.py migrate
     ./manage.py createsuperuser
     ```
+6. Start the Django application.
+    `./manage.py runserver`
+
