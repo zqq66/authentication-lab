@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
 from django.contrib.auth.models import User, Group
-from rest_framework import generics, viewsets, permissions
+from rest_framework import generics, viewsets, permissions, renderers
+from rest_framework.response import Response
 
 from .models import Snippet
 from .serializers import UserSerializer, GroupSerializer, SnippetSerializer
@@ -37,3 +38,13 @@ class SnippetViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
         return super().perform_create(serializer)
+
+
+class SnippetHighlight(generics.GenericAPIView):
+    queryset = Snippet.objects.all()
+    renderer_classes = (renderers.StaticHTMLRenderer,)
+
+    def get(self, request, *args, **kwargs):
+        snippet = self.get_object()
+        return Response(snippet.highlighted)
+

@@ -16,7 +16,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from rest_framework.authtoken import views as authtoken_views
 from client import views
 
 router = routers.DefaultRouter()
@@ -28,7 +27,5 @@ urlpatterns = [
     path('', include('client.urls')),
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    # path('snippets/', views.SnippetList.as_view()),
-    # path('snippets/<int:pk>/', views.SnippetDetail.as_view()),
-    path('api/auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path('api/auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
